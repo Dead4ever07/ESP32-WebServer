@@ -26,3 +26,8 @@ The project is barely scalable due to the reduced rom size. Not recomended build
 To do this i have used the libraries declared in the .ino file.
 
 The <LittleFS.h> to be installed it is necessary to download a modified version of the ESP32 library available in their github(https://github.com/lorol/LITTLEFS/releases/tag/1.0.6)
+
+
+## Pictures
+
+![Project Picture](/Pictures/Project%20Picture.jpeg)
