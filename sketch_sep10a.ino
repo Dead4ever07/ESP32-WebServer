@@ -1,3 +1,4 @@
+
 #include <WiFi.h>
 #include <WebServer.h>
 #include "FS.h"
@@ -40,6 +41,27 @@ void handleFileRequest() {
   }
 }
 
+void WiFiEvent(WiFiEvent_t event) {
+  switch (event) {
+    case WIFI_EVENT_STA_CONNECTED:
+      Serial.println("WiFi connected!");
+      break;
+
+    case WIFI_EVENT_STA_DISCONNECTED:
+      Serial.println("WiFi lost connection, reconnecting...");
+      WiFi.reconnect();
+      break;
+
+    case IP_EVENT_STA_GOT_IP:
+      Serial.print("Got IP: ");
+      Serial.println(WiFi.localIP());
+      break;
+
+    default:
+      break;
+  }
+}
+
 void setup() {
   Serial.begin(115200);
 
@@ -51,6 +73,8 @@ void setup() {
   if (!WiFi.config(local_IP, gateway, subnet, primaryDNS, secondaryDNS)) {
     Serial.println("STA Failed to configure");
   }
+  
+  WiFi.onEvent(WiFiEvent);
 
   WiFi.begin(ssid, password);
   Serial.print("Connecting to WiFi");
